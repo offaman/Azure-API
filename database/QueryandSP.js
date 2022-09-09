@@ -9,8 +9,9 @@ async function executeQueryString(queryString, parameters){
         let info  = await request.query(queryString);
         return info.recordsets;
     }else{
-        parameters.forEach(element => {
-            request.input(element[0],element[1],element[2])
+        parameters.forEach(elementContainingInfo => {
+            let [name,dtype,value] = elementContainingInfo;
+            request.input(name,dtype,value)
         });
         let info = await request.query(queryString)
         return info.recordsets
@@ -25,8 +26,9 @@ async function executeStoredProcedure(spName, parameters){
         return info.recordsets;
     }
     else{
-        parameters.forEach(element => {
-            request.input(element[0],element[1],element[2])
+        parameters.forEach(elementContainingInfo => {
+            let [name,dtype,value] = elementContainingInfo;
+            request.input(name,dtype,value)
         });
         let info = await request.execute(spName)
         return info.recordsets

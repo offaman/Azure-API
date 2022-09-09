@@ -1,7 +1,8 @@
+const mssql = require('mssql')
+const logger = require('../Logging/logger')
 const tableforOperations = 'StudentDetails'
 const queryandSp= require('./QueryandSP')
 const storedProcToInsert = 'insertIntoStudentTable'
-const mssql = require('mssql')
 
 
 async function getStudentInfo(){
@@ -10,8 +11,11 @@ async function getStudentInfo(){
 }
 
 async function getStudentById(studentId){
+
     query= `select * from ${tableforOperations} where StudentId = @studentId`
+
     parameters = [['studentId',mssql.NVarChar,studentId]]
+
     return queryandSp.executeQueryString(query,parameters)
 }
 
@@ -49,9 +53,14 @@ async function updateStudent(StudentDetails){
 }
 
 async function deleteStudent(studentId){
-    query= `delete from ${tableforOperations} where StudentId = @StudentId`
-    parameters = [['studentId',mssql.NVarChar,studentId]]
-    return queryandSp.executeQueryString(query,parameters)
+    try{
+        query= `delete from ${tableforOperation} where StudentId = @StudentId`
+        parameters = [['studentId',mssql.NVarChar,studentId]]
+        return queryandSp.executeQueryString(query,parameters)
+    }catch(error){
+        logger.log('error',error);
+    }
+    return "abc";
 }
 
 

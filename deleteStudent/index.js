@@ -1,8 +1,10 @@
 const databasefunctions = require('../database/databaseOps')
+const logger = require('../Logging/logger')
 
 module.exports = async function (context, req) {
-    await databasefunctions.deleteStudent(req.params.id).then(result=>{    
-    }).catch((err)=>{
-        logger.log('error',err)
-    })
+    try{
+        await databasefunctions.deleteStudent(req.params.id);
+    }catch(error){
+        logger.log(error)
+    }
 };

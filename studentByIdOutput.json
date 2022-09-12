@@ -1,11 +1,11 @@
 [
-    [
-      {
-        "StudentId": "1122",
-        "StudentName": "Stud",
-        "GPA": 8.3,
-        "Branch": "CS",
-        "Section": "A"
-      }
-    ]
+  [
+    {
+          "StudentId": "1",
+          "StudentName": "Sanjay Sharma",
+          "GPA": 9,
+          "Branch": "CS",
+          "Section": "C"
+    }
+  ]
 ]

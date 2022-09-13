@@ -23,15 +23,14 @@ async function executeStoredProcedure(spName, parameters){
     let pool = await poolPromise
     let request = pool.request();
     if(parameters == undefined){
-        await request.execute(spName);
-        
+        request.execute(spName);
     }
     else{
         parameters.forEach(elementContainingInfo => {
             let [name,dtype,value] = elementContainingInfo;
             request.input(name,dtype,value)
         });
-        await request.execute(spName)
+    request.execute(spName)
     }
 }
 

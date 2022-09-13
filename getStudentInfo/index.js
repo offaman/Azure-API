@@ -1,7 +1,6 @@
 const databasefunctions = require('../database/databaseOps')
 
-
-module.exports = async function (context, req) {
+async function getinfo(context, req) {
     await databasefunctions.getStudentInfo().then(result =>{
         context.res = {body:result} 
     }).catch((err)=>{
@@ -9,3 +8,4 @@ module.exports = async function (context, req) {
     })
 }
 
+module.exports = getinfo

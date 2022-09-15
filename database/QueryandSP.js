@@ -1,10 +1,7 @@
-const tableforOperations = 'StudentDetails'
-const mssql = require('mssql')
-const config = require('../config/dbconfig')
-const poolPromise = require('../config/dbConnection')
+const dbConnection = require('../config/dbconfig')
 
 async function executeQueryString(queryString, parameters){
-    let pool = await poolPromise
+    const pool = await dbConnection.dbConnect()
     let request = pool.request();
     if(parameters == undefined){
         let info  = await request.query(queryString);
@@ -20,7 +17,7 @@ async function executeQueryString(queryString, parameters){
 }
 
 async function executeStoredProcedure(spName, parameters){
-    let pool = await poolPromise
+    const pool = await dbConnection.dbConnect()
     let request = pool.request();
     if(parameters == undefined){
         request.execute(spName);
@@ -30,6 +27,7 @@ async function executeStoredProcedure(spName, parameters){
             let [name,dtype,value] = elementContainingInfo;
             request.input(name,dtype,value)
         });
+
     request.execute(spName)
     }
 }

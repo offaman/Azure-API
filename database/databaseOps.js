@@ -1,8 +1,8 @@
 const mssql = require('mssql')
-const tableforOperations = 'StudentDetails'
+const tableforOperations = require('../constants/spAndQueries').tableforOperations
 const queryandSp= require('./QueryandSP')
-const storedProcToInsert = 'insertIntoStudentTable'
-const updateStudentStoredProc = 'spUpdateStudentById'
+const storedProcToInsert = require('../constants/spAndQueries').storedProcToInsert
+const updateStudentStoredProc = require('../constants/spAndQueries').updateStudentStoredProc
 
 async function getStudentInfo(){
     query= `select * from ${tableforOperations}`
@@ -27,6 +27,7 @@ async function insertStudent(StudentDetails){
         singleParam.push(key, dtype, StudentDetails[key])
         parameters.push(singleParam)
     }
+    
     return queryandSp.executeStoredProcedure(storedProcToInsert,parameters)
 }
 

@@ -11,6 +11,7 @@ Publish
 *.Cache
 project.lock.json
 
+/Jest testing/stuff
 /packages
 /TestResults
 

@@ -1,1 +1,0 @@
-const storedProcToInsert = require('./spAndQueries')

@@ -1,9 +1,7 @@
 const secretinfo = require('./getkeyvaultPassword')
 const mssql = require('mssql')
-const azureValues = require('./azureConfig')
+const azureValues = require('../config/azureConfig')
 require('dotenv').config()
-
-
 
 async function dbConnect(){
   sqlConfig = {

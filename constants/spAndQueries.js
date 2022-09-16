@@ -1,5 +1,3 @@
-
-
 const storedProcToInsert = 'insertIntoStudentTable'
 const updateStudentStoredProc = 'spUpdateStudentById'
 const tableforOperations = 'StudentDetails'

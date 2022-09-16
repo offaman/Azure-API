@@ -1,9 +1,5 @@
 const database =  require('../database/databaseOps')
-const querySp = require('../database/QueryandSP')
-const sql = require('mssql')
-const fs = require('fs')
-const studentByIdOutput = require('../studentByIdOutput.json')
-const storedProcToInsert = 'insertIntoStudentTable'
+
 const ExpectedStudentInfoById = require('./getInfo.json')
 
 jest.mock('../database/databaseOps');

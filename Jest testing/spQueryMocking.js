@@ -1,4 +1,4 @@
-const connectionPool = require('../config/dbconfig')
+const connectionPool = require('../DataAccess/dbconfig')
 const database = require('../database/QueryandSP')
 const sqlQuerymetadata = require('../getinfo.json')
 
@@ -24,14 +24,5 @@ database.executeQueryString = jest.fn((sqlQuery, parameters) => {
 
 module.exports = database
 
-
-// database.executeStoredProcedure = jest.fn((storedProcedure, parameters) => {
-
-//     switch (storedProcedure) {
-//         case constants.STORED_PROCEDURES.InsertAttribute:
-//             return dataAccess_insertAttribute_Metadata;
-//     }
-
-// });
 
 

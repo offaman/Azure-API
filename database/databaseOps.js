@@ -1,18 +1,15 @@
 const mssql = require('mssql')
-const tableforOperations = require('../constants/spAndQueries').tableforOperations
 const queryandSp= require('./QueryandSP')
-const storedProcToInsert = require('../constants/spAndQueries').storedProcToInsert
-const updateStudentStoredProc = require('../constants/spAndQueries').updateStudentStoredProc
+const constants = require('../constants/spAndQueries')
+const queries =  require('./Queries')
 
 async function getStudentInfo(){
-    query= `select * from ${tableforOperations}`
-    return queryandSp.executeQueryString(query)
+    return queryandSp.executeQueryString(queries.GetallStudentInfo)
 }
 
 async function getStudentById(studentId){
-    query= `select * from ${tableforOperations} where StudentId = @studentId`
     parameters = [['studentId',mssql.NVarChar,studentId]]
-    return queryandSp.executeQueryString(query,parameters)
+    return queryandSp.executeQueryString(queries.getStudentByIdQuery,parameters)
 }
 
 async function insertStudent(StudentDetails){
@@ -28,7 +25,7 @@ async function insertStudent(StudentDetails){
         parameters.push(singleParam)
     }
     
-    return queryandSp.executeStoredProcedure(storedProcToInsert,parameters)
+    return queryandSp.executeStoredProcedure(constants.storedProcToInsert,parameters)
 }
 
 
@@ -44,14 +41,13 @@ async function updateStudent(StudentDetails){
         singleParam.push(key, dtype, StudentDetails[key])
         parameters.push(singleParam)        
     }
-    return queryandSp.executeStoredProcedure(updateStudentStoredProc,parameters)
+    return queryandSp.executeStoredProcedure(constants.updateStudentStoredProc,parameters)
 }
 
 async function deleteStudent(studentId){
     try{
-        query= `delete from ${tableforOperations} where StudentId = @StudentId`
         parameters = [['studentId',mssql.NVarChar,studentId]]
-        return queryandSp.executeQueryString(query,parameters)
+        return queryandSp.executeQueryString(queries.deleteStudentById,parameters)
     }catch(error){
         console.log('error',error);
     }

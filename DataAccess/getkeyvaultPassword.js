@@ -1,6 +1,6 @@
 const azure_identity = require('@azure/identity')
 const az_key_vault = require('@azure/keyvault-secrets')
-const vaultUrl = require('./azureConfig')
+const vaultUrl = require('../config/azureConfig')
 
 
 async function secretinfo(secretName){

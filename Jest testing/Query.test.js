@@ -1,5 +1,5 @@
 const sql = require('mssql')
-const database = require('../Jest testing/spQueryMocking')
+const database = require('./spQueryMocking')
 const sqlQuerymetadata = require('../getinfo.json')
 
 jest.setTimeout(100000)

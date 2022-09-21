@@ -1,15 +1,16 @@
 const mssql = require('mssql')
 const queryandSp= require('./QueryandSP')
 const constants = require('../constants/spAndQueries')
-const queries =  require('./Queries')
 
 async function getStudentInfo(){
-    return queryandSp.executeQueryString(queries.GetallStudentInfo)
+    const info = await queryandSp.executeStoredProcedure(constants.getallStudentInfo)
+    return  info.recordsets
 }
 
 async function getStudentById(studentId){
     parameters = [['studentId',mssql.NVarChar,studentId]]
-    return queryandSp.executeQueryString(queries.getStudentByIdQuery,parameters)
+    const info = await queryandSp.executeStoredProcedure(constants.getStudentInfoById,parameters)
+    return info.recordsets
 }
 
 async function insertStudent(StudentDetails){
@@ -24,10 +25,8 @@ async function insertStudent(StudentDetails){
         singleParam.push(key, dtype, StudentDetails[key])
         parameters.push(singleParam)
     }
-    
     return queryandSp.executeStoredProcedure(constants.storedProcToInsert,parameters)
 }
-
 
 async function updateStudent(StudentDetails){
     parameters = []
@@ -47,11 +46,10 @@ async function updateStudent(StudentDetails){
 async function deleteStudent(studentId){
     try{
         parameters = [['studentId',mssql.NVarChar,studentId]]
-        return queryandSp.executeQueryString(queries.deleteStudentById,parameters)
+        return queryandSp.executeStoredProcedure(constants.deleteStudentById,parameters)
     }catch(error){
         console.log('error',error);
     }
-    return "abc";
 }
 
 module.exports={getStudentInfo,getStudentById,insertStudent,updateStudent, deleteStudent}
